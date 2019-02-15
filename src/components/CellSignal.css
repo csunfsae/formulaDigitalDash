@@ -1,0 +1,21 @@
+.icon{
+  position:relative;
+  height:1em;
+  width:1em;
+  display: inline-block;
+}
+.background{
+  width: 0;
+  height: 0;
+  border-bottom: 1em solid grey;
+  border-left: 1em solid transparent;
+  position:absolute
+}
+.cellStrength{
+  height:0px;
+  Width:0px;
+  position:absolute;
+}
+p{
+  display: inline-block;
+}
