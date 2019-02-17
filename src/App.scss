@@ -36,6 +36,7 @@ body{
 }
 .status-bar{
   height: 2em;
+  -webkit-app-region: drag;
 }
 .alert{
   z-index: 1000;
