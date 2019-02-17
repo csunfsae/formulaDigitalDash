@@ -51,7 +51,7 @@ class App extends Component {
     return (
       <div>
         <div className="row status-bar d-flex justify-content-end mt-2">
-          <PulsatingDot className={"d-block ml-4 mt-2"} status={this.socket.connected} />
+          <PulsatingDot id={"puslingDot"} className={"d-block ml-4 mt-2"} status={this.socket.connected} />
           <CellSignal className={"d-block mt-1 ml-2 mr-auto"} signalType={this.state.signalType} signalStrength={this.state.signalStrength} />
           {/* <Alert color="warning" className="mb-0 mr-auto">
             This is a message from the team.
