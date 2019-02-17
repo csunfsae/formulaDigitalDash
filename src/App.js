@@ -15,10 +15,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.socket = io('https://api.matadormotorsports.racing/');
-    this.state = { connected: false, charge: 100, signalStrength: 0, signalType: false, mph: 0, batterystart:0};
+    this.state = { connected: false, charge: 100, signalStrength: 0, signalType: false, mph: 0, batterystart: 0, stopWatch:false};
     
     this.handleConnection = this.handleConnection.bind(this);
     this.something = this.something.bind(this);
+    this.startStopWatch = this.startStopWatch.bind(this);
   }
   handleConnection(){
     this.setState({
@@ -39,6 +40,11 @@ class App extends Component {
     });
     this.socket.on('location', (data) =>{
       this.something(data);
+    })
+  }
+  startStopWatch(){
+    this.setState({
+      stopWatch:true
     })
   }
   render() {
@@ -66,10 +72,10 @@ class App extends Component {
           <Battery/>
         </div>
         <div className="row top-row">
-          <div className="col-4 text-left ml-4">
+          <div className="col-4 text-left ml-4" onClick={this.startStopWatch}>
             <h3>ELAPSED:</h3>
             <h2 className="text-left font-weight-light">
-              <ReactStopwatch seconds={0} minutes={0} hours={0}>{({ formatted }) => (<p>{formatted}</p>)}</ReactStopwatch>
+              <ReactStopwatch autoStart={this.state.stopWatch} seconds={0} minutes={0} hours={0} >{({ formatted }) => (<p>{formatted}</p>)}</ReactStopwatch>
             </h2>
           </div>
           <div className="col-3 text-left ml-auto">
