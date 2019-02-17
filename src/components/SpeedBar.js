@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import './SpeedBar.scss';
-import styled , {css} from 'styled-components';
-
+import { subscribeToSpeed } from '../api';
 class SpeedBar extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { speed: 0}
+        subscribeToSpeed((err, data) => this.setState({ speed: data.sats*10 }));
+    }
     render() {
-        var Gradient = styled.div`
-            clip: rect(0px, ${this.props.speed/2}rem, 2000px, 0px)!important;
-            transition: all 5s;
-        `;
+        let clipping = {
+            clip: `rect(0px, ${this.state.speed / 2}rem, 2000px, 0px)`
+        }
         return (
             <div className="row speedBar">
-                <img style={{position: 'absolute',left: '5px',width: '5em',top: '-10px'}} src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png" />
+                <img alt="logo" style={{position: 'absolute',left: '5px',width: '5em',top: '-10px'}} src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png" />
                 <div className="row speedcurve speedcurve-bg"></div>
-                <Gradient className="row speedcurve speed">
+                <div className="row speedcurve speed" style={clipping}>
                     <div className="col batterySegment"></div>
                     <div className="col batterySegment"></div>
                     <div className="col batterySegment"></div>
@@ -67,7 +70,7 @@ class SpeedBar extends Component {
                     <div className="col batterySegment"></div>
                     <div className="col batterySegment"></div>
                     <div className="col batterySegment"></div>
-                </Gradient>
+                </div>
                 <div className="speedcurveblack"></div>
             </div>
         );

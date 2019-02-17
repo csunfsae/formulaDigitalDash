@@ -1,24 +1,28 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import CountUp from 'react-countup';
+import { subscribeToSpeed } from '../../api';
+
 export default class Battery extends Component {
     constructor(props) {
         super(props)
         this.percentStart = 0;
         this.voltStart= 0;
+        this.state = {charge : 100}
+        // subscribeToSpeed((err, data) => this.setState({charge: 100}));
     }
     render() {
     var bg = "green";
-    if (this.props.charge > 55) {
+    if (this.state.charge > 55) {
         bg="green";
-    } else if (this.props.charge > 30){
+    } else if (this.state.charge > 30){
         bg= "orange";
     } else {
         bg="red";
     }
     var Level = styled.div`
         &:before{
-        height: ${this.props.charge}%;
+        height: ${this.state.charge}%;
         background: ${bg};
         border-top: ${bg};
         }
@@ -27,8 +31,8 @@ export default class Battery extends Component {
     return (
         <Level className="col-3 text-center battery-border ml-auto mr-4 p-0" >
             <div className="battery-data">
-                <h1 className="display-4"><CountUp start={this.percentStart} end={this.props.charge} onEnd={() => { this.percentStart = this.props.charge }} />%</h1>
-                <h3 className=""><CountUp start={this.voltStart} end={this.props.charge} onEnd={() => { this.voltStart = this.props.charge }} /> V</h3>
+                <h5>Charge:</h5>
+                <h1 className="display-5"><CountUp start={this.percentStart} end={this.state.charge} onEnd={() => { this.percentStart = this.state.charge }} />%</h1>
             </div>
         </Level>
     )

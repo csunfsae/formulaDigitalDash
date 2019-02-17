@@ -44,8 +44,7 @@ svg{
     overflow: hidden;
     &.speed{
         background: rgb( 17,17,17);
-        clip: rect(0px, 0rem, 2000px, 0px);
-        transition: clip 5s;
+        transition: clip 1s;
     }
     &-bg{
         background: rgb( 17,17,17)
