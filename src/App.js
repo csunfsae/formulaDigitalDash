@@ -5,31 +5,39 @@ import PulsatingDot from './components/PulsingStatus';
 import Clock from 'react-live-clock';
 import CellSignal from './components/CellSignal';
 import SpeedBar from './components/SpeedBar';
-import { Alert } from 'reactstrap';
 import CountUp  from 'react-countup';
-import styled from 'styled-components';
 import Battery from './components/Battery';
 import ReactStopwatch from 'react-stopwatch';
+import Cover from 'react-video-cover';
+import ClickNHold from 'react-click-n-hold'; 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.socket = io('https://api.matadormotorsports.racing/');
-    this.state = { connected: false, charge: 100, signalStrength: 0, signalType: false, mph: 0, batterystart: 0, stopWatch:false};
-    
+    this.state = { showVideo:"none", connected: false, charge: 100, signalStrength: 0, signalType: false, mph: 0, batterystart: 0, stopWatch:false};
+    this.videoRef = React.createRef();
+
     this.handleConnection = this.handleConnection.bind(this);
-    this.something = this.something.bind(this);
-    this.startStopWatch = this.startStopWatch.bind(this);
+    this.easterEgg = this.easterEgg.bind(this);
   }
   handleConnection(){
     this.setState({
       connected: this.socket.connected
     });
   }
-  something(data){
-    // this.setState({
-    //   // mph: (data.sats*10),
-    // });
+  easterEgg(){
+    let display = "";
+    if(this.state.showVideo == "none"){
+      this.videoRef.current.play()
+      display = "block";
+    } else{
+      this.videoRef.current.currentTime = 0;
+      display = "none";
+    }
+    this.setState({
+      showVideo: display
+    })
   }
   componentWillMount() {
     this.socket.on('connect', () => {
@@ -39,12 +47,7 @@ class App extends Component {
       this.handleConnection();
     });
     this.socket.on('location', (data) =>{
-      this.something(data);
-    })
-  }
-  startStopWatch(){
-    this.setState({
-      stopWatch:true
+      // this.something(data);
     })
   }
   render() {
@@ -59,6 +62,9 @@ class App extends Component {
           <div className={"d-block mr-2 mt-1"}>65°F</div>
           <Clock className={"d-block mr-4 mt-1"} format={'h:mm A'} ticking={true} timezone={'US/Pacific'} />
         </div>
+        <ClickNHold time={5} onClickNHold={this.easterEgg} >
+          <img alt="logo" draggable={false} className="ealogo" src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png" />
+        </ClickNHold>
         <SpeedBar/>
         <div className="row top-row">
           <div className="speed-border">
@@ -80,17 +86,20 @@ class App extends Component {
           </div>
           <div className="col-3 text-left ml-auto">
             <p>MOTOR:</p>
-            <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={88} suffix={"°F"} /></h1>
+            <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={30} suffix={"°C"} /></h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
           <div className="col-3 text-left ml-auto">
             <p>BATTERY:</p>
-            <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={75} suffix={"°F"} /></h1>
+            <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={40} suffix={"°C"} /></h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
         </div>
         <div className="row fixed-bottom batterySection">
           <h3 className="mt-auto ml-4" style={{ textShadow:'-1px 0 rgba(17, 17, 17, 0.5), 0 1px rgba(17, 17, 17, 0.5), 1px 0 rgba(17, 17, 17, 0.5), 0 -1px rgba(17, 17, 17, 0.5)'}}>Volts: <CountUp duration={2} end={10} suffix={"v."} /></h3>
+        </div>
+        <div className="ea" style={{ display: this.state.showVideo }} >
+          <Cover videoOptions={{ src: '/ea.mp4', autoPlay: false, onEnded: this.easterEgg, ref: this.videoRef }} />
         </div>
       </div>
     );

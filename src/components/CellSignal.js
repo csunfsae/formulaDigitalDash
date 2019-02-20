@@ -9,7 +9,7 @@ class CellSignal extends Component {
       this.state = {
          gps:0,
          signalStrength:0,
-         signalType:"EDGE"
+         signalType:"LTE"
       }
       subscribeToGPS((err, data) => this.setState({gps: data.sats, signalStrength:data.sats}));
     }
