@@ -62,7 +62,7 @@ class App extends Component {
           <div className={"d-block mr-2 mt-1"}>65°F</div>
           <Clock className={"d-block mr-4 mt-1"} format={'h:mm A'} ticking={true} timezone={'US/Pacific'} />
         </div>
-        <ClickNHold time={5} onClickNHold={this.easterEgg} >
+        <ClickNHold time={3} onClickNHold={this.easterEgg} >
           <img alt="logo" draggable={false} className="ealogo" src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png" />
         </ClickNHold>
         <SpeedBar/>
