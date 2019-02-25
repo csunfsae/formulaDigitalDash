@@ -28,10 +28,10 @@ body{
 .batterySection{
   margin: 0 1px;
   width:65%;
-  height: 3em;
+  height: 5em;
   bottom:0;
   position: absolute;
-  background: linear-gradient(to left, #dfd7d7, #ff5b00, #ff8700, #ffad00, #ffd000, #ecd600, #d7db00, #c1e000, #96c800, #6cb000, #419800, #008000);;
+  background: green;
   background-attachment: fixed;
 }
 .status-bar{
@@ -55,9 +55,9 @@ body{
 .speed-border{
   border: 2px solid white;
   border-radius: 5px;
-  padding:5px;
+  padding:2em 0;
   margin-left: 3em;
-  width: 9em;
+  width: 12em;
 }
 .battery-border{
   border-radius: 5px;

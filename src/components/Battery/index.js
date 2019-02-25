@@ -13,9 +13,9 @@ export default class Battery extends Component {
     }
     render() {
     var bg = "green";
-    if (this.state.charge > 55) {
+    if (this.state.charge > 50) {
         bg="green";
-    } else if (this.state.charge > 30){
+    } else if (this.state.charge > 25){
         bg= "orange";
     } else {
         bg="red";
@@ -29,7 +29,7 @@ export default class Battery extends Component {
         
     `;
     return (
-        <Level className="col-3 text-center battery-border ml-auto mr-4 p-0" >
+        <Level className="col-2 text-center battery-border ml-auto p-0" >
             <div className="battery-data">
                 <h5>Charge:</h5>
                 <h1 className="display-5"><CountUp start={this.percentStart} end={this.state.charge} onEnd={() => { this.percentStart = this.state.charge }} />%</h1>

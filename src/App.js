@@ -39,6 +39,8 @@ class App extends Component {
       showVideo: display
     })
   }
+  // 445v Max 
+  
   componentWillMount() {
     this.socket.on('connect', () => {
       this.handleConnection();
@@ -51,6 +53,34 @@ class App extends Component {
     })
   }
   render() {
+    var highVoltageColor;
+
+    if (hvReading > 335) {
+      highVoltageColor = '#66CD00';
+    } else if (hvReading > 280) {
+      highVoltageColor = '#FCD116';
+    } else {
+      highVoltageColor = '#FF3333';
+    }
+    var lowVoltage;
+    if (lvReading > 13.5) {
+      lowVoltage = '#66CD00';
+    } else if (lvReading > 12.5) {
+      lowVoltage = '#FCD116';
+    } else {
+      lowVoltage = '#FF3333';
+    }
+    var batteryTemps;
+    if (btReading > 50) {
+      batteryTemps = '#FF3333';
+    } else if (btReading > 40) {
+      batteryTemps = '#FCD116';
+    } else {
+      batteryTemps = '#66CD00';
+    }
+
+
+
     return (
       <div>
         <div className="row status-bar d-flex justify-content-end mt-2">
@@ -67,36 +97,42 @@ class App extends Component {
         </ClickNHold>
         <SpeedBar/>
         <div className="row top-row">
-          <div className="speed-border">
-            <h3 className="text-left ">MPH:</h3>
-            <h1 className="text-center display-3" ><CountUp duration={1} end={55} /></h1>
+          <div className="col-3 text-left ml-auto">
+            <p>Low Volt:</p>
+            <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={30} suffix={"V."} /></h1>
+            {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
+            <p>High Volt:</p>
+            <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={40} suffix={"V."} /></h1>
+            {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
-          <div className="col-2 text-center ml-3 mr-auto">
-            <h3 className=" text-left">RPM:</h3>
-            <h1 className="font-weight-light text-left"><CountUp duration={2} end={10} /></h1>
-          </div>
-          <Battery/>
-        </div>
-        <div className="row top-row">
-          <div className="col-4 text-left ml-4" onClick={this.startStopWatch}>
-            <h3>ELAPSED:</h3>
-            <h2 className="text-left font-weight-light">
-              <ReactStopwatch autoStart={this.state.stopWatch} seconds={0} minutes={0} hours={0} >{({ formatted }) => (<p>{formatted}</p>)}</ReactStopwatch>
-            </h2>
+          <div className="speed-border ml-auto mr-auto verticle-align-center">
+            <h2 className="text-center ">MPH</h2>
+            <h1 className="text-center display-2" ><CountUp duration={1} end={55} /></h1>
           </div>
           <div className="col-3 text-left ml-auto">
             <p>MOTOR:</p>
             <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={30} suffix={"°C"} /></h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-          </div>
-          <div className="col-3 text-left ml-auto">
             <p>BATTERY:</p>
             <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={40} suffix={"°C"} /></h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
+          {/* <div className="col-2 text-center ml-3 mr-auto">
+            <h3 className=" text-left">RPM:</h3>
+            <h1 className="font-weight-light text-left"><CountUp duration={2} end={10} /></h1>
+          </div> */}
+          {/* <Battery/> */}
+        </div>
+        <div className="row top-row">
+          {/* <div className="col-4 text-left ml-4" onClick={this.startStopWatch}>
+            <h3>ELAPSED:</h3>
+            <h2 className="text-left font-weight-light">
+              <ReactStopwatch autoStart={this.state.stopWatch} seconds={0} minutes={0} hours={0} >{({ formatted }) => (<p>{formatted}</p>)}</ReactStopwatch>
+            </h2>
+          </div> */}
         </div>
         <div className="row fixed-bottom batterySection">
-          <h3 className="mt-auto ml-4" style={{ textShadow:'-1px 0 rgba(17, 17, 17, 0.5), 0 1px rgba(17, 17, 17, 0.5), 1px 0 rgba(17, 17, 17, 0.5), 0 -1px rgba(17, 17, 17, 0.5)'}}>Volts: <CountUp duration={2} end={10} suffix={"v."} /></h3>
+          <h3 className="mt-auto mb-auto ml-4" style={{ textShadow:'-1px 0 rgba(17, 17, 17, 0.5), 0 1px rgba(17, 17, 17, 0.5), 1px 0 rgba(17, 17, 17, 0.5), 0 -1px rgba(17, 17, 17, 0.5)'}}>Volts: <CountUp duration={2} end={10} suffix={"v."} /></h3>
         </div>
         <div className="ea" style={{ display: this.state.showVideo }} >
           <Cover videoOptions={{ src: '/ea.mp4', autoPlay: false, onEnded: this.easterEgg, ref: this.videoRef }} />
