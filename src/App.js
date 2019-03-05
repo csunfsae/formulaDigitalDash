@@ -53,31 +53,31 @@ class App extends Component {
     })
   }
   render() {
-    var highVoltageColor;
+    // var highVoltageColor;
 
-    if (hvReading > 335) {
-      highVoltageColor = '#66CD00';
-    } else if (hvReading > 280) {
-      highVoltageColor = '#FCD116';
-    } else {
-      highVoltageColor = '#FF3333';
-    }
-    var lowVoltage;
-    if (lvReading > 13.5) {
-      lowVoltage = '#66CD00';
-    } else if (lvReading > 12.5) {
-      lowVoltage = '#FCD116';
-    } else {
-      lowVoltage = '#FF3333';
-    }
-    var batteryTemps;
-    if (btReading > 50) {
-      batteryTemps = '#FF3333';
-    } else if (btReading > 40) {
-      batteryTemps = '#FCD116';
-    } else {
-      batteryTemps = '#66CD00';
-    }
+    // if (hvReading > 335) {
+    //   highVoltageColor = '#66CD00';
+    // } else if (hvReading > 280) {
+    //   highVoltageColor = '#FCD116';
+    // } else {
+    //   highVoltageColor = '#FF3333';
+    // }
+    // var lowVoltage;
+    // if (lvReading > 13.5) {
+    //   lowVoltage = '#66CD00';
+    // } else if (lvReading > 12.5) {
+    //   lowVoltage = '#FCD116';
+    // } else {
+    //   lowVoltage = '#FF3333';
+    // }
+    // var batteryTemps;
+    // if (btReading > 50) {
+    //   batteryTemps = '#FF3333';
+    // } else if (btReading > 40) {
+    //   batteryTemps = '#FCD116';
+    // } else {
+    //   batteryTemps = '#66CD00';
+    // }
 
 
 
