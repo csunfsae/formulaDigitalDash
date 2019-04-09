@@ -7,8 +7,8 @@ function subscribeToSpeed(cb) {
 function subscribeToGPS(cb) {
     socket.on('location', data => cb(null, data));
 }
-function subscribeToConnection(cb){
-    socket.on('connect', data => cb(null, data));
-    socket.on('reconnecting', data => cb(null, data));
-}
+// function subscribeToConnection(cb){
+//     socket.on('connect', data => cb(null, data));
+//     socket.on('reconnecting', data => cb(null, data));
+// }
 export { subscribeToSpeed, subscribeToGPS };

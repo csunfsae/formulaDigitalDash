@@ -6,52 +6,67 @@ import Clock from 'react-live-clock';
 import CellSignal from './components/CellSignal';
 import SpeedBar from './components/SpeedBar';
 import CountUp  from 'react-countup';
-import Battery from './components/Battery';
-import ReactStopwatch from 'react-stopwatch';
+// import Battery from './components/Battery';
+// import ReactStopwatch from 'react-stopwatch';
 import Cover from 'react-video-cover';
-import ClickNHold from 'react-click-n-hold'; 
 
-class App extends Component {
+class Dash extends Component {
   constructor(props) {
-    super(props)
-    this.socket = io('https://api.matadormotorsports.racing/');
-    this.state = { showVideo:"none", connected: false, charge: 100, signalStrength: 0, signalType: false, mph: 0, batterystart: 0, stopWatch:false};
+    super(props);
+    this.socket = io("https://api.matadormotorsports.racing/");
+    this.state = {
+      showVideo: "none",
+      connected: false,
+      charge: 100,
+      signalStrength: 0,
+      signalType: false,
+      mph: 0,
+      batterystart: 0,
+      stopWatch: false,
+      eaClicks: 0
+    };
     this.videoRef = React.createRef();
 
     this.handleConnection = this.handleConnection.bind(this);
     this.easterEgg = this.easterEgg.bind(this);
   }
-  handleConnection(){
+  handleConnection() {
     this.setState({
       connected: this.socket.connected
     });
   }
-  easterEgg(){
-    let display = "";
-    if(this.state.showVideo == "none"){
-      this.videoRef.current.play()
-      display = "block";
-    } else{
-      this.videoRef.current.currentTime = 0;
-      display = "none";
-    }
+  easterEgg() {
     this.setState({
-      showVideo: display
-    })
+      eaClicks: this.state.eaClicks+1
+    });
+    
+    if (this.state.eaClicks % 5 === 0 && this.state.eaClicks !== 0) {
+      let display = "";
+      if (this.state.showVideo === "none") {
+        this.videoRef.current.play();
+        display = "block";
+      } else {
+        this.videoRef.current.currentTime = 0;
+        display = "none";
+      }
+      this.setState({
+        showVideo: display
+      });
+    }
   }
-  // 445v Max 
-  
+
   componentWillMount() {
-    this.socket.on('connect', () => {
+    this.socket.on("connect", () => {
       this.handleConnection();
     });
-    this.socket.on('reconnecting', () => {
+    this.socket.on("reconnecting", () => {
       this.handleConnection();
     });
-    this.socket.on('location', (data) =>{
+    this.socket.on("location", data => {
       // this.something(data);
-    })
+    });
   }
+  
   render() {
     // var highVoltageColor;
 
@@ -79,42 +94,72 @@ class App extends Component {
     //   batteryTemps = '#66CD00';
     // }
 
-
-
     return (
       <div>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
         <div className="row status-bar d-flex justify-content-end mt-2">
-          <PulsatingDot id={"puslingDot"} className={"d-block ml-4 mt-2"} status={this.socket.connected} />
-          <CellSignal className={"d-block mt-1 ml-2 mr-auto"} signalType={this.state.signalType} signalStrength={this.state.signalStrength} />
+          <PulsatingDot
+            id={"puslingDot"}
+            className={"d-block ml-4 mt-2"}
+            status={this.socket.connected}
+          />
+          <CellSignal
+            className={"d-block mt-1 ml-2 mr-auto"}
+            signalType={this.state.signalType}
+            signalStrength={this.state.signalStrength}
+          />
           {/* <Alert color="warning" className="mb-0 mr-auto">
             This is a message from the team.
           </Alert> */}
           <div className={"d-block mr-2 mt-1"}>65°F</div>
-          <Clock className={"d-block mr-4 mt-1"} format={'h:mm A'} ticking={true} timezone={'US/Pacific'} />
+          <Clock
+            className={"d-block mr-4 mt-1"}
+            format={"h:mm A"}
+            ticking={true}
+            timezone={"US/Pacific"}
+          />
         </div>
-        <ClickNHold time={3} onClickNHold={this.easterEgg} >
-          <img alt="logo" draggable={false} className="ealogo" src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png" />
-        </ClickNHold>
-        <SpeedBar/>
+        <div onClick={this.easterEgg}>
+          <img
+            alt="logo"
+            draggable={false}
+            className="ealogo"
+            src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png"
+          />
+        </div>
+        <SpeedBar />
         <div className="row top-row">
           <div className="col-3 text-left ml-auto">
             <p>Low Volt:</p>
-            <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={30} suffix={"V."} /></h1>
+            <h1 className="font-weight-light text-left text-warning">
+              <CountUp duration={2} end={30} suffix={"V."} />
+            </h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
             <p>High Volt:</p>
-            <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={40} suffix={"V."} /></h1>
+            <h1 className="font-weight-light text-left text-success">
+              <CountUp duration={2} end={40} suffix={"V."} />
+            </h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
           <div className="speed-border ml-auto mr-auto verticle-align-center">
             <h2 className="text-center ">MPH</h2>
-            <h1 className="text-center display-2" ><CountUp duration={1} end={55} /></h1>
+            <h1 className="text-center display-2">
+              <CountUp duration={1} end={55} />
+            </h1>
           </div>
           <div className="col-3 text-left ml-auto">
             <p>MOTOR:</p>
-            <h1 className="font-weight-light text-left text-warning"><CountUp duration={2} end={30} suffix={"°C"} /></h1>
+            <h1 className="font-weight-light text-left text-warning">
+              <CountUp duration={2} end={30} suffix={"°C"} />
+            </h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
             <p>BATTERY:</p>
-            <h1 className="font-weight-light text-left text-success"><CountUp duration={2} end={40} suffix={"°C"} /></h1>
+            <h1 className="font-weight-light text-left text-success">
+              <CountUp duration={2} end={40} suffix={"°C"} />
+            </h1>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
           {/* <div className="col-2 text-center ml-3 mr-auto">
@@ -132,14 +177,29 @@ class App extends Component {
           </div> */}
         </div>
         <div className="row fixed-bottom batterySection">
-          <h3 className="mt-auto mb-auto ml-4" style={{ textShadow:'-1px 0 rgba(17, 17, 17, 0.5), 0 1px rgba(17, 17, 17, 0.5), 1px 0 rgba(17, 17, 17, 0.5), 0 -1px rgba(17, 17, 17, 0.5)'}}>Volts: <CountUp duration={2} end={10} suffix={"v."} /></h3>
+          <h3
+            className="mt-auto mb-auto ml-4"
+            style={{
+              textShadow:
+                "-1px 0 rgba(17, 17, 17, 0.5), 0 1px rgba(17, 17, 17, 0.5), 1px 0 rgba(17, 17, 17, 0.5), 0 -1px rgba(17, 17, 17, 0.5)"
+            }}
+          >
+            Volts: <CountUp duration={2} end={10} suffix={"v."} />
+          </h3>
         </div>
-        <div className="ea" style={{ display: this.state.showVideo }} >
-          <Cover videoOptions={{ src: '/ea.mp4', autoPlay: false, onEnded: this.easterEgg, ref: this.videoRef }} />
+        <div className="ea" style={{ display: this.state.showVideo }}>
+          <Cover
+            videoOptions={{
+              src: "/ea.mp4",
+              autoPlay: false,
+              onEnded: this.easterEgg,
+              ref: this.videoRef
+            }}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default Dash;
