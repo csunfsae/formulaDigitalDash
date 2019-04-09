@@ -36,23 +36,26 @@ class Dash extends Component {
     });
   }
   easterEgg() {
-    this.setState({
-      eaClicks: this.state.eaClicks+1
-    });
-    
-    if (this.state.eaClicks % 5 === 0 && this.state.eaClicks !== 0) {
-      let display = "";
-      if (this.state.showVideo === "none") {
-        this.videoRef.current.play();
-        display = "block";
-      } else {
-        this.videoRef.current.currentTime = 0;
-        display = "none";
-      }
+    let display = "";
+    if (this.state.showVideo === "none"){
       this.setState({
-        showVideo: display
+        eaClicks: this.state.eaClicks + 1
       });
     }
+    if (
+      this.state.showVideo === "none" &&
+      this.state.eaClicks % 5 === 0 &&
+      this.state.eaClicks !== 0
+    ) {
+      this.videoRef.current.play();
+      display = "block";
+    }else {
+      this.videoRef.current.currentTime = 0;
+      display = "none";
+    }
+    this.setState({
+      showVideo: display
+    });
   }
 
   componentWillMount() {
