@@ -5,7 +5,7 @@ import { subscribeToSpeed } from '../api';
 class SpeedBar extends Component {
     constructor(props) {
         super(props)
-        this.state = { speed: 0}
+        this.state = { speed: 100}
         subscribeToSpeed((err, data) => this.setState({ speed: data.sats*10 }));
     }
     end() {

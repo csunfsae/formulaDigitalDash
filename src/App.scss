@@ -25,10 +25,13 @@ body{
   -webkit-user-select: none; /* Chrome, Safari, and Opera */
   -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
+.info-border{
+  border:10px solid;
+}
 .batterySection{
   margin: 0 1px;
   width:65%;
-  height: 5em;
+  height: 4.5em;
   bottom:0;
   position: absolute;
   background: green;

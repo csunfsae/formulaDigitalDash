@@ -20,7 +20,7 @@ class Dash extends Component {
       charge: 100,
       signalStrength: 0,
       signalType: false,
-      mph: 0,
+      mph: 100,
       batterystart: 0,
       stopWatch: false,
       eaClicks: 0
@@ -136,33 +136,41 @@ class Dash extends Component {
         <SpeedBar />
         <div className="row top-row">
           <div className="col-3 text-left ml-auto">
-            <p>Low Volt:</p>
-            <h1 className="font-weight-light text-left text-warning">
-              <CountUp duration={2} end={30} suffix={"V."} />
-            </h1>
+            <div className="bg-warning border-warning rounded info-border mb-2">
+              <p>Low Volt:</p>
+              <h1 className="font-weight-light text-left">
+                <CountUp duration={2} end={30} suffix={"V."} />
+              </h1>
+            </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-            <p>High Volt:</p>
-            <h1 className="font-weight-light text-left text-success">
-              <CountUp duration={2} end={40} suffix={"V."} />
-            </h1>
+            <div className="bg-danger border-danger rounded info-border">
+              <p>High Volt:</p>
+              <h1 className="font-weight-light text-left">
+                <CountUp duration={2} end={40} suffix={"V."} />
+              </h1>
+            </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
-          <div className="speed-border ml-auto mr-auto verticle-align-center">
+          <div className="speed-border ml-auto mr-auto vertical-align-center">
             <h2 className="text-center ">MPH</h2>
             <h1 className="text-center display-2">
               <CountUp duration={1} end={55} />
             </h1>
           </div>
-          <div className="col-3 text-left ml-auto">
-            <p>MOTOR:</p>
-            <h1 className="font-weight-light text-left text-warning">
-              <CountUp duration={2} end={30} suffix={"°C"} />
-            </h1>
+          <div className="col-3 text-left ml-auto mr-auto">
+            <div className="bg-danger border-danger rounded info-border mb-2">
+              <p>MOTOR:</p>
+              <h1 className="font-weight-light text-left">
+                <CountUp duration={2} end={30} suffix={"°C"} />
+              </h1>
+            </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-            <p>BATTERY:</p>
-            <h1 className="font-weight-light text-left text-success">
-              <CountUp duration={2} end={40} suffix={"°C"} />
-            </h1>
+            <div className="bg-success border-success rounded info-border">
+              <p>BATTERY:</p>
+              <h1 className="font-weight-light text-left">
+                <CountUp duration={2} end={40} suffix={"°C"} />
+              </h1>
+            </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
           {/* <div className="col-2 text-center ml-3 mr-auto">
