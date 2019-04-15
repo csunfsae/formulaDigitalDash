@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
-import './App.scss';
+
 import io from 'socket.io-client';
-import PulsatingDot from './components/PulsingStatus';
 import Clock from 'react-live-clock';
+import Cover from 'react-video-cover';
+import queryString from 'query-string';
+import {Alert} from 'reactstrap';
+
+import PulsatingDot from './components/PulsingStatus';
 import CellSignal from './components/CellSignal';
 import SpeedBar from './components/SpeedBar';
 import CountUp  from 'react-countup';
 // import Battery from './components/Battery';
 // import ReactStopwatch from 'react-stopwatch';
-import Cover from 'react-video-cover';
+
+import './Dash.scss';
 
 class Dash extends Component {
   constructor(props) {
     super(props);
-    this.socket = io("https://api.matadormotorsports.racing/");
+    this.params = queryString.parse(this.props.location.search);
+    console.log(this.params.socket)
+
     this.state = {
       showVideo: "none",
       connected: false,
@@ -23,8 +30,11 @@ class Dash extends Component {
       mph: 100,
       batterystart: 0,
       stopWatch: false,
-      eaClicks: 0
+      eaClicks: 0,
+      remote: this.params.socket
     };
+    
+    this.socket = io(this.state.remote?this.state.remote:"https://api.matadormotorsports.racing");
     this.videoRef = React.createRef();
 
     this.handleConnection = this.handleConnection.bind(this);
@@ -98,11 +108,7 @@ class Dash extends Component {
     // }
 
     return (
-      <div>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        />
+      <div className="dash-pg">
         <div className="row status-bar d-flex justify-content-end mt-2">
           <PulsatingDot
             id={"puslingDot"}
@@ -114,9 +120,11 @@ class Dash extends Component {
             signalType={this.state.signalType}
             signalStrength={this.state.signalStrength}
           />
-          {/* <Alert color="warning" className="mb-0 mr-auto">
-            This is a message from the team.
-          </Alert> */}
+          {this.state.remote?null:(
+            <Alert color="warning" className="mb-0 mr-auto">
+              You are viewing the steering dash remotely, data may be delayed.
+          </Alert>
+          ) }
           <div className={"d-block mr-2 mt-1"}>65°F</div>
           <Clock
             className={"d-block mr-4 mt-1"}
@@ -135,17 +143,17 @@ class Dash extends Component {
         </div>
         <SpeedBar />
         <div className="row top-row">
-          <div className="col-3 text-left ml-auto">
-            <div className="bg-warning border-warning rounded info-border mb-2">
+          <div className="col-3 text-left ml-6 mr-auto">
+            <div className="border-warning rounded info-border mb-2 text-center">
               <p>Low Volt:</p>
-              <h1 className="font-weight-light text-left">
+              <h1 className="font-weight-light">
                 <CountUp duration={2} end={30} suffix={"V."} />
               </h1>
             </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-            <div className="bg-danger border-danger rounded info-border">
+            <div className="border-danger rounded info-border text-center">
               <p>High Volt:</p>
-              <h1 className="font-weight-light text-left">
+              <h1 className="font-weight-light">
                 <CountUp duration={2} end={40} suffix={"V."} />
               </h1>
             </div>
@@ -157,17 +165,17 @@ class Dash extends Component {
               <CountUp duration={1} end={55} />
             </h1>
           </div>
-          <div className="col-3 text-left ml-auto mr-auto">
-            <div className="bg-danger border-danger rounded info-border mb-2">
+          <div className="col-3 text-left ml-auto mr-6 text-center">
+            <div className="border-info rounded info-border mb-2">
               <p>MOTOR:</p>
-              <h1 className="font-weight-light text-left">
+              <h1 className="font-weight-light">
                 <CountUp duration={2} end={30} suffix={"°C"} />
               </h1>
             </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-            <div className="bg-success border-success rounded info-border">
+            <div className="border-success rounded info-border text-center">
               <p>BATTERY:</p>
-              <h1 className="font-weight-light text-left">
+              <h1 className="font-weight-light">
                 <CountUp duration={2} end={40} suffix={"°C"} />
               </h1>
             </div>
@@ -175,7 +183,7 @@ class Dash extends Component {
           </div>
           {/* <div className="col-2 text-center ml-3 mr-auto">
             <h3 className=" text-left">RPM:</h3>
-            <h1 className="font-weight-light text-left"><CountUp duration={2} end={10} /></h1>
+            <h1 className="font-weight-light"><CountUp duration={2} end={10} /></h1>
           </div> */}
           {/* <Battery/> */}
         </div>

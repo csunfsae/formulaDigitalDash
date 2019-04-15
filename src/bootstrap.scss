@@ -1,1 +1,18 @@
+@font-face {font-family: "EurostileCandyW01-Semibold";
+      src: url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.eot");
+      src: url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.eot?#iefix") format("embedded-opentype"),
+      url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.woff2") format("woff2"),
+      url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.woff") format("woff"),
+      url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.ttf") format("truetype"),
+      url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.svg#EurostileCandyW01-Semibold") format("svg");
+}
 @import "~bootstrap/scss/bootstrap";
+.ml-6 {
+    margin-left: ($spacer * 4) !important;
+}
+.mr-6 {
+    margin-right: ($spacer * 4) !important;
+}
+body{
+  background-color:rgb(17, 17, 17);
+}
