@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import "./bootstrap.scss";
-import './index.css';
 
 import AppRouter from "./AppRouter";
 
