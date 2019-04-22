@@ -1,9 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom"
 import { withRouter } from 'react-router';
-
-import Callback from './Callback/Callback';
-
 import Dash from './Dash' ;
 import Home from './Home';
 import Telemetry from "./Telemetry";
