@@ -7,7 +7,6 @@ import App from './App';
 
 import "./bootstrap.scss";
 
-const auth = new Auth();
 ReactDOM.render(
     <BrowserRouter>
         <App />
