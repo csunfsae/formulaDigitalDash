@@ -2,21 +2,11 @@ import React from "react";
 import { Route } from "react-router-dom"
 import { withRouter } from 'react-router';
 import Dash from './Dash' ;
-import Home from './Home';
 import Telemetry from "./Telemetry";
 
 function App(props) {
     return (
       <React.Fragment>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home
-              history={props.history}
-            />
-          )}
-        />
         <Route path="/dash" component={Dash} />
         <Route
           exact
