@@ -1,0 +1,118 @@
+
+@font-face {font-family: "EurostileCandyW01-Semibold";
+    src: url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.eot");
+    src: url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/5e7704e23815aa7ad1b3332bfd199719.svg#EurostileCandyW01-Semibold") format("svg");
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body{
+  font-family: "EurostileCandyW01-Semibold"!important;
+  overflow: hidden;
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+.info-border{
+  border:10px solid;
+}
+.batterySection{
+  margin: 0 1px;
+  width:65%;
+  height: 4.5em;
+  bottom:0;
+  position: absolute;
+  background: green;
+  background-attachment: fixed;
+}
+.status-bar{
+  height: 2em;
+  -webkit-app-region: drag;
+}
+.alert{
+  z-index: 1000;
+  top:-10px;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.speed-border{
+  border: 2px solid white;
+  border-radius: 5px;
+  padding:2em 0;
+  margin-left: 3em;
+  width: 12em;
+}
+.battery-border{
+  border-radius: 5px;
+  padding:5px;
+  // margin-left: 5em;
+  width: 10em;
+  text-shadow: -1px 0 rgba(17,17,17,0.5), 0 1px rgba(17,17,17,0.5), 1px 0 rgba(17,17,17,0.5), 0 -1px rgba(17,17,17,0.5);
+  &:before{
+    content: '\A';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transition: all 5s;
+    -webkit-transition: all 5s;
+    border-radius: 5px 5px 0 0;
+    height: 100%;
+    background: green;
+    border-top: green;
+  }
+}
+.battery-data{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.top-row{
+  top: -1em;
+  position: relative;
+  padding-bottom: 2em;
+}
+.ml-7{
+  margin-left: 7em;
+}
+.battery-background{
+  height: 0px;
+  -webkit-transition: height 2s;
+	-moz-transition: height 2s;
+	transition: height 2s;
+}
+.ea{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+}
+.ealogo{
+    position: absolute;
+    left: -0.5em;
+    width: 5em;
+    top: 1.8em;
+    z-index: 1;
+}
