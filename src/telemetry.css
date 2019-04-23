@@ -1,0 +1,95 @@
+/*
+  Notes:
+  1. width attribute in current-value is carrying over in timer-box???
+  2. padding attribute in current-value is carrying over in slider-color???
+  3. voltage-submit is dictating all the boxes left in the layout
+
+  Possible Realizations:
+  1. Id then tag
+  
+  Look into: Position and Display properties
+
+*/
+
+/****** IDs ******/
+#current-value{
+    background-color: #FFF;
+    color: #000;
+    border: #000 1px solid;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+}
+
+#slider-color{
+    background-color: #FFF;
+}
+
+#myRange{
+    background-color: #FFF;
+    color: #000;
+    width: 100%;
+}
+
+#timer-box{
+    background-color: #FFF;
+    color: #000;
+    border: #000 1px solid;
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* #input-field{
+
+}
+
+
+#input-field input{
+
+} */
+
+/* Button */
+#voltage-submit{
+    color: #000;
+    width: 320px;
+    padding: 10px;
+}
+
+/* Button */
+#timer-toggle-button{
+    color: #000;
+    width: 450px;
+    padding: 10px;
+}
+
+/* Button */
+#reset-button{
+    color: #000;
+    width: 320px;
+    padding: 10px;
+}
+
+/* Button */
+#send-button{
+    color: #000;
+    width: 450px;
+    padding: 10px;
+}
+
+
+/******* Classes ******/
+.table-container{
+    margin: 10px 10px;
+}
+
+.slider{
+    
+}
+
+/* This is to handle input-field  */
+input{
+    padding: 11px 0px;
+    width: 100%;
+    /* display: block; */
+}
