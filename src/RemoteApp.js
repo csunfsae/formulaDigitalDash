@@ -35,10 +35,10 @@ const geolocateStyle = {
 	margin: 10
 };
 
-class TelemetryApp extends Component {
+class RemoteApp extends Component {
 	constructor(props) {
 		super(props);
-		// this.carSocket = io('https://car.matadormotorsports.racing');
+		this.carSocket = io('https://car.matadormotorsports.racing');
 		this.state = {
 			value: 0,
 			liability: false,
@@ -62,10 +62,10 @@ class TelemetryApp extends Component {
 		this.handleDirection = this.handleDirection.bind(this);
 		this.stop = this.stop.bind(this);
 	};
-	
 	subscribeToLocation(){
-		// this.carSocket.on('location');
-		// this.setState({ carLat: data.lat, carLong: data.long});
+		// this.carSocket.on('location', (data) => {
+		// 	this.setState({ carLat: data.lat, carLong: data.long});\
+		// });
 	}
 	handleClose(value){
 		this.setState({ 'liabilityAlert': false, 'liability': value});
@@ -74,24 +74,33 @@ class TelemetryApp extends Component {
 	_onViewportChange = viewport => this.setState({ viewport });
 	
 	start(){
-		// this.carSocket.emit('can_bus', { 'action': 'accelerate', 'value': 25 });
+		if(this.state.carDirection === 'drive'){
+			this.carSocket.emit('can_bus', { 'action': 'accelerate', 'value': 0 - this.state.value });
+		}else{
+			this.carSocket.emit('can_bus', { 'action': 'accelerate', 'value': this.state.value });
+		}
 	}
 	end(){
-		// this.carSocket.emit('can_bus', { 'action': 'stop' });
+		this.carSocket.emit('can_bus', { 'action': 'stop' });
 	}
 	stop(){
+		this.carSocket.emit('can_bus', { 'action': 'toggle_analog' });
 		this.setState({'carDirection':'stop'});
 	}
 	handleSlider(event, value){
-		if(value > 50 & this.state.liability !== true){
+		if(value > 30 & this.state.liability !== true){
 			this.end();
 			this.setState({'liabilityAlert':true});
 		} else{
 			this.setState({ 'value': value });
-			// this.carSocket.emit('can_bus', { 'action': 'accelerate', 'value': value });
 		}
 	};
 	handleDirection(event, value){
+		if(value !== 'stop'){
+			this.carSocket.emit('can_bus', { 'action': 'toggle_digital'});
+		}else{
+			this.carSocket.emit('can_bus', { 'action': 'toggle_analog' });
+		}
 		this.setState({'carDirection':value});
 	}
 	render() {
@@ -164,7 +173,7 @@ class TelemetryApp extends Component {
 							max={100}
 							onChange={this.handleSlider}
 							step={1}
-							disabled={this.state.carDirection == 'stop'}
+							disabled={this.state.carDirection === 'stop'}
 						/>
 						</Grid>
 					</Grid>
@@ -206,10 +215,11 @@ class TelemetryApp extends Component {
 					>
 
 						<Fab
-						disabled={this.state.carDirection == 'stop'}
+						disabled={this.state.carDirection === 'stop'}
 						variant="extended"
 						aria-label="Add"
 						size="large"
+						disableRipple
 						onTouchStart={() => {
 							this.start();
 						}}
@@ -235,5 +245,5 @@ class TelemetryApp extends Component {
 		}
 	}
 	
-	export default TelemetryApp;
+	export default RemoteApp;
 	
