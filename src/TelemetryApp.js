@@ -35,10 +35,9 @@ const geolocateStyle = {
 	margin: 10
 };
 
-class Telemetry extends Component {
+class TelemetryApp extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		// this.carSocket = io('https://car.matadormotorsports.racing');
 		this.state = {
 			value: 0,
@@ -236,5 +235,5 @@ class Telemetry extends Component {
 		}
 	}
 	
-	export default Telemetry;
+	export default TelemetryApp;
 	

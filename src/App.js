@@ -1,25 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom"
-import { withRouter } from 'react-router';
 import Dash from './Dash' ;
-import Telemetry from "./Telemetry";
+import TelemetryApp from "./TelemetryApp";
 
-function App(props) {
+function App() {
     return (
       <Router>
-        <Route path="/dash" component={Dash} />
-        <Route
-          exact
-          path="/telemetry"
-          render={() => (
-            <Telemetry
-              history={props.history}
-            />
-          )}
-        />
-        {/* <Route path="/home" component={Home} auth={props.auth} {...props} /> */}
+        <Route exact path="/dash" component={Dash} />
+        <Route exact component={TelemetryApp} path="/" />
       </Router>
     );
 }
-
-export default withRouter(App);
+export default App;

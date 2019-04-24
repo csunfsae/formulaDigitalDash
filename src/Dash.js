@@ -19,8 +19,7 @@ class Dash extends Component {
   constructor(props) {
     super(props);
     this.params = queryString.parse(this.props.location.search);
-    console.log(this.params.socket)
-
+    
     this.state = {
       showVideo: "none",
       connected: false,
