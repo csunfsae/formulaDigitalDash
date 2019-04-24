@@ -7,11 +7,7 @@ import App from './App';
 
 import "./bootstrap.scss";
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
-    document.getElementById('root')
-);
+ReactDOM.render(<AppRouter />, document.getElementById("root"));
+
 
 serviceWorker.register();
