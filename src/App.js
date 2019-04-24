@@ -1,12 +1,12 @@
 import React from "react";
-import { Route } from "react-router-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import { withRouter } from 'react-router';
 import Dash from './Dash' ;
 import Telemetry from "./Telemetry";
 
 function App(props) {
     return (
-      <React.Fragment>
+      <Router>
         <Route path="/dash" component={Dash} />
         <Route
           exact
@@ -18,7 +18,7 @@ function App(props) {
           )}
         />
         {/* <Route path="/home" component={Home} auth={props.auth} {...props} /> */}
-      </React.Fragment>
+      </Router>
     );
 }
 
