@@ -11,85 +11,83 @@
 
 */
 
-/****** IDs ******/
-#current-value{
-    background-color: #FFF;
-    color: #000;
-    border: #000 1px solid;
-    width: 50%;
-    text-align: center;
-    padding: 10px;
+#myRange {
+    margin-bottom: 0;
+    min-height: 38px;
 }
 
-#slider-color{
-    background-color: #FFF;
-}
-
-#myRange{
-    background-color: #FFF;
-    color: #000;
+table {
     width: 100%;
+    background-color: whitesmoke;
 }
 
-#timer-box{
+Button {
+    width: 100%;
+    height: 100%;
+}
+
+/****** IDs ******/
+#current-value {
     background-color: #FFF;
     color: #000;
-    border: #000 1px solid;
     text-align: center;
-    padding: 10px;
 }
 
-
-/* #input-field{
-
-}
-
-
-#input-field input{
-
-} */
-
-/* Button */
-#voltage-submit{
+#timer-box, #direction-indicator {
+    background-color: #FFF;
     color: #000;
-    width: 320px;
-    padding: 10px;
+    text-align: center;
 }
 
 /* Button */
-#timer-toggle-button{
+#voltage-submit {
     color: #000;
-    width: 450px;
-    padding: 10px;
+    height: 100%;
 }
 
 /* Button */
-#reset-button{
+#timer-toggle-button {
     color: #000;
-    width: 320px;
-    padding: 10px;
 }
 
 /* Button */
-#send-button{
+#reset-button {
     color: #000;
-    width: 450px;
-    padding: 10px;
 }
 
+/* Button */
+#send-button {
+    color: #000;
+}
 
 /******* Classes ******/
-.table-container{
-    margin: 10px 10px;
+
+tr {
+
+    border: whitesmoke 10px solid;
 }
 
-.slider{
-    
+.slider {
+    padding: 5%;
+    margin: auto;
+    background-color: #FFF;
+    color: #000;
 }
 
 /* This is to handle input-field  */
 input{
-    padding: 11px 0px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#forward-button, #backward-button {
+    color:black;
     width: 100%;
-    /* display: block; */
+}
+
+#message-driver {
+    margin: 0;
+    padding: 0;
+    height: 36px;
+    width: 100%;
 }
