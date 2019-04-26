@@ -26,14 +26,13 @@ class Dash extends Component {
       charge: 100,
       signalStrength: 0,
       signalType: false,
-      mph: 100,
+      mph: 0,
       batterystart: 0,
       stopWatch: false,
       eaClicks: 0,
-      remote: this.params.socket
     };
     
-    this.socket = io(this.state.remote?this.state.remote:"https://api.matadormotorsports.racing");
+    this.socket = io("http://10.42.0.189");
     this.videoRef = React.createRef();
 
     this.handleConnection = this.handleConnection.bind(this);
@@ -75,8 +74,16 @@ class Dash extends Component {
       this.handleConnection();
     });
     this.socket.on("location", data => {
-      // this.something(data);
+      // this.setState(data);
     });
+    this.socket.on("speed", data => {
+      this.setState({ "mph": data.value});
+    });
+    this.socket.on("can_bus", function(data){
+      if(data.action === 'toggle_digital'){
+        alert("Car is being controlled remotely");
+      }
+    })
   }
   
   render() {
@@ -119,11 +126,6 @@ class Dash extends Component {
             signalType={this.state.signalType}
             signalStrength={this.state.signalStrength}
           />
-          {this.state.remote?null:(
-            <Alert color="warning" className="mb-0 mr-auto">
-              You are viewing the steering dash remotely, data may be delayed.
-          </Alert>
-          ) }
           <div className={"d-block mr-2 mt-1"}>65°F</div>
           <Clock
             className={"d-block mr-4 mt-1"}
@@ -140,59 +142,45 @@ class Dash extends Component {
             src="https://b.fssta.com/uploads/content/dam/fsdigital/fscom/global/dev/static_resources/cbk/teams/retina/419.vresize.100.100.high.0.png"
           />
         </div>
-        <SpeedBar />
+        <SpeedBar speed={this.state.mph} />
         <div className="row top-row">
           <div className="col-3 text-left ml-6 mr-auto">
-            <div className="border-warning rounded info-border mb-2 text-center">
+            <div className="border-success rounded info-border mb-2 text-center">
               <p>Low Volt:</p>
               <h1 className="font-weight-light">
-                <CountUp duration={2} end={30} suffix={"V."} />
-              </h1>
-            </div>
-            {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-            <div className="border-danger rounded info-border text-center">
-              <p>High Volt:</p>
-              <h1 className="font-weight-light">
-                <CountUp duration={2} end={40} suffix={"V."} />
-              </h1>
-            </div>
-            {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
-          </div>
-          <div className="speed-border ml-auto mr-auto vertical-align-center">
-            <h2 className="text-center ">MPH</h2>
-            <h1 className="text-center display-2">
-              <CountUp duration={1} end={55} />
-            </h1>
-          </div>
-          <div className="col-3 text-left ml-auto mr-6 text-center">
-            <div className="border-info rounded info-border mb-2">
-              <p>MOTOR:</p>
-              <h1 className="font-weight-light">
-                <CountUp duration={2} end={30} suffix={"°C"} />
+                <CountUp duration={2} end={31} suffix={"V."} />
               </h1>
             </div>
             {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
             <div className="border-success rounded info-border text-center">
-              <p>BATTERY:</p>
+              <p>High Volt:</p>
               <h1 className="font-weight-light">
-                <CountUp duration={2} end={40} suffix={"°C"} />
+                <CountUp duration={2} end={33} suffix={"V."} />
               </h1>
             </div>
-            {/* <h2 className="">Elapsed:<b><Clock className={"d-block mr-4"} format={'hh:mm:ss'} ticking={true} timezone={'US/Pacific'} /></b></h3> */}
           </div>
-          {/* <div className="col-2 text-center ml-3 mr-auto">
-            <h3 className=" text-left">RPM:</h3>
-            <h1 className="font-weight-light"><CountUp duration={2} end={10} /></h1>
-          </div> */}
-          {/* <Battery/> */}
+          <div className="speed-border ml-auto mr-auto vertical-align-center">
+            <h2 className="text-center ">MPH</h2>
+            <h1 className="text-center display-2">
+              <CountUp duration={1} end={this.state.mph} />
+            </h1>
+          </div>
+          <div className="col-3 text-left ml-auto mr-6 text-center">
+            <div className="border-success rounded info-border mb-2">
+              <p>MOTOR:</p>
+              <h1 className="font-weight-light">
+                <CountUp duration={2} end={32} suffix={"°C"} />
+              </h1>
+            </div>
+            <div className="border-success rounded info-border text-center">
+              <p>BATTERY:</p>
+              <h1 className="font-weight-light">
+                <CountUp duration={2} end={30} suffix={"°C"} />
+              </h1>
+            </div>
+          </div>
         </div>
         <div className="row top-row">
-          {/* <div className="col-4 text-left ml-4" onClick={this.startStopWatch}>
-            <h3>ELAPSED:</h3>
-            <h2 className="text-left font-weight-light">
-              <ReactStopwatch autoStart={this.state.stopWatch} seconds={0} minutes={0} hours={0} >{({ formatted }) => (<p>{formatted}</p>)}</ReactStopwatch>
-            </h2>
-          </div> */}
         </div>
         <div className="row fixed-bottom batterySection">
           <h3
