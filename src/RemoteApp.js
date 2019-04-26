@@ -210,35 +210,6 @@ class RemoteApp extends Component {
 					position="fixed"
 					color="primary"
 				>
-					<Fab
-						disabled={this.state.carDirection === 'stop'}
-						variant="extended"
-						aria-label="Add"
-						size="large"
-						disableRipple
-						onTouchStart={() => {
-							this.start();
-						}}
-						onTouchEnd={() => {
-							this.end();
-						}}
-						style={{
-							position: "relative",
-							zIndex: 1,
-							top: -30,
-							right: 0,
-
-							margin: "0 auto"
-						}}
-						>
-							<PlayArrow /> Accelerate
-					</Fab>
-					<Toolbar
-						style={{
-							alignItems: "center",
-							justifyContent: "space-between"
-						}}
-					>
 						<div>
 							<PulsatingDot
 								id={"puslingDot"}
@@ -246,6 +217,7 @@ class RemoteApp extends Component {
 								status={true}
 							/>
 						</div>
+
 						<Fab
 						disabled={this.state.carDirection === 'stop'}
 						variant="extended"
