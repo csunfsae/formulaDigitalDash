@@ -32,7 +32,7 @@ class Dash extends Component {
       eaClicks: 0,
     };
     
-    this.socket = io("http://10.42.0.1");
+    this.socket = io("http://10.42.0.1:3000");
     this.videoRef = React.createRef();
 
     this.handleConnection = this.handleConnection.bind(this);
