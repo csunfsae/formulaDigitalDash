@@ -15,16 +15,19 @@ import {
 	Tabs,
 	Tab,
 	Paper,
+	IconButton
 } from "@material-ui/core";
 import { Slider, ToggleButtonGroup, ToggleButton} from '@material-ui/lab';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ReactMapGL, {GeolocateControl, Marker} from 'react-map-gl';
 
+import PulsatingDot from './components/PulsingStatus';
+
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { red, grey} from "@material-ui/core/colors";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { PlayArrow, Stop, ArrowBack} from '@material-ui/icons';
+import { PlayArrow, Stop, ArrowBack, PowerSettingsNew} from '@material-ui/icons';
 
 import io from 'socket.io-client';
 
@@ -63,9 +66,9 @@ class RemoteApp extends Component {
 		this.stop = this.stop.bind(this);
 	};
 	subscribeToLocation(){
-		// this.carSocket.on('location', (data) => {
-		// 	this.setState({ carLat: data.lat, carLong: data.long});\
-		// });
+		this.carSocket.on('location', (data) => {
+			this.setState({ carLat: data.lat, carLong: data.long});
+		});
 	}
 	handleClose(value){
 		this.setState({ 'liabilityAlert': false, 'liability': value});
@@ -207,12 +210,13 @@ class RemoteApp extends Component {
 					position="fixed"
 					color="primary"
 				>
-					<Toolbar
-						style={{
-							alignItems: "center",
-							justifyContent: "space-between"
-						}}
-					>
+						<div>
+							<PulsatingDot
+								id={"puslingDot"}
+								className={"d-block ml-4 mt-2"}
+								status={true}
+							/>
+						</div>
 
 						<Fab
 						disabled={this.state.carDirection === 'stop'}
@@ -237,6 +241,11 @@ class RemoteApp extends Component {
 						>
 							<PlayArrow /> Accelerate
 						</Fab>
+						<div>
+							<IconButton color="inherit">
+								<PowerSettingsNew />
+							</IconButton>
+						</div>
 					</Toolbar>
 				</AppBar>
 			</MuiThemeProvider>
