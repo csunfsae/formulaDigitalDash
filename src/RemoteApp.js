@@ -246,7 +246,6 @@ class RemoteApp extends Component {
 								<PowerSettingsNew />
 							</IconButton>
 						</div>
-					</Toolbar>
 				</AppBar>
 			</MuiThemeProvider>
 			</div>
