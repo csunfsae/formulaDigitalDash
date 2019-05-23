@@ -9,7 +9,7 @@
     "blk-design-system-react": "^1.0.0",
     "bootstrap": "^4.3.1",
     "geolib": "^2.0.24",
-    "mapbox-gl": "^0.53.1",
+    "mapbox-gl": "^1.0.0",
     "node-sass": "^4.11.0",
     "query-string": "^6.4.2",
     "react": "^16.8.1",
