@@ -8,7 +8,7 @@
     "@material-ui/lab": "^3.0.0-alpha.30",
     "blk-design-system-react": "^1.0.0",
     "bootstrap": "^4.3.1",
-    "geolib": "^2.0.24",
+    "geolib": "^3.0.3",
     "mapbox-gl": "^1.0.0",
     "node-sass": "^4.11.0",
     "query-string": "^6.7.0",
