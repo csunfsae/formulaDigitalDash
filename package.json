@@ -14,7 +14,7 @@
     "query-string": "^6.7.0",
     "react": "^16.8.1",
     "react-bootstrap": "^1.0.0-beta.9",
-    "react-countup": "^4.1.0",
+    "react-countup": "^4.2.0",
     "react-d3-guage": "^0.3.7",
     "react-dom": "^16.8.1",
     "react-liquid-gauge": "^1.2.4",
